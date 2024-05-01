@@ -4,7 +4,8 @@ import ApiService from '../../services/ApiService';
 import ReadFromText from '../ReadFromText/ReadFromText';
 
 
-export default function AudioRecorderPeriodic() {
+export default function AudioRecorderPeriodic({captureImage}) {
+  
   const [recording, setRecording] = React.useState(null);
   const [x,setX] = React.useState(false);
   React.useEffect(() => {
@@ -39,7 +40,7 @@ export default function AudioRecorderPeriodic() {
           processAudio(uri);
         }, 5000);
       } catch (error) {
-        console.error('Failed to start recording', error);
+        console.log('Nothing');
       }
     };
 
@@ -89,6 +90,14 @@ export default function AudioRecorderPeriodic() {
 
 
       }
+      if(text.includes('capture') || text.includes('click'))
+      {
+        captureImage();
+        
+
+
+      }
+    
     
     } catch (error) {
       console.error('Error uploading audio:', error);

@@ -41,7 +41,7 @@ export default function ReadFromText() {
         <Button title="Take Picture" onPress={takePictureAndUpload} />
       </View>
       <View>
-      <AudioRecorderPeriodic/>
+      <AudioRecorderPeriodic captureImage={takePictureAndUpload}/>
       </View>
     </View>
   );
