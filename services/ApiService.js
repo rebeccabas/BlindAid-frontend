@@ -11,7 +11,7 @@ export default class ApiService {
         uri: imageFile.uri,
       });
 
-      const response = await fetch('http://192.168.1.139:8000/navigate/', {
+      const response = await fetch('http://192.168.101.6:8000/navigate/', {
         method: 'POST',
         body: formData,
         headers: {
