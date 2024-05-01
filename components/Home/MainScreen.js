@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 
-import ApiService from '../services/ApiService';
-import AudioPlayer from './AudioPlayer/AudioPlayer';
-import NavigationBar from './Navigation/NavigationBar';
-import Camera from './Camera/Camera';
-import AudioRecorderPeriodic from './AudioRecorder/AudioRecorderPeriodic';
+import ApiService from '../../services/ApiService';
+import AudioPlayer from '../AudioPlayer/AudioPlayer';
+import NavigationBar from '../Navigation/NavigationBar';
+import Camera from '../Camera/Camera';
+import AudioRecorderPeriodic from '../AudioRecorder/AudioRecorderPeriodic';
+import ReadFromText from '../ReadFromText/ReadFromText';
 
-function HomeScreen() {
+function MainScreen() {
   const [capturedImage, setCapturedImage] = useState(null);
   const [audioFile, setAudioFile] = useState(null);
 
@@ -24,13 +25,7 @@ function HomeScreen() {
     const fetchAudioFromApi = async () => {
       try {
         if (capturedImage) {
-          // Convert the image to base64 format
-    
-          
-          // Call the ApiService.sendImage() function with the base64 image
           await ApiService.sendImage(capturedImage);
-
-        
         }
       } catch (error) {
         console.error('Error fetching audio:', error);
@@ -46,11 +41,10 @@ function HomeScreen() {
     <View style={{ flex: 1 }}>
       <NavigationBar />
       <Camera onImageCapture={handleImageCapture} />
-      <AudioRecorderPeriodic/>
-   
+      <AudioRecorderPeriodic />
       
     </View>
   );
 }
 
-export default HomeScreen;
+export default MainScreen;

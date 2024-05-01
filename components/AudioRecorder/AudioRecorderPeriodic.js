@@ -77,7 +77,7 @@ export default function AudioRecorderPeriodic({captureImage}) {
       
       if(text.includes('play'))
       {
-        ApiService.playSpeech();
+        ApiService.resumeSpeech();
       }
       
       if(text.includes('hey blind aid') || text.includes('hello blind aid')|| text.includes('hey blindaid') || text.includes('hello blindaid'))
@@ -94,8 +94,6 @@ export default function AudioRecorderPeriodic({captureImage}) {
       {
         captureImage();
         
-
-
       }
     
     

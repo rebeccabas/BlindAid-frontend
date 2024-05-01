@@ -1,3 +1,4 @@
+import NavigationBar from '../Navigation/NavigationBar';
 import React, { useState, useRef } from 'react';
 import { View, Button } from 'react-native';
 import { Camera as ExpoCamera } from 'expo-camera';
@@ -22,27 +23,27 @@ export default function ReadFromText() {
   };
 
   const handlePlaySpeech = async () => {
-   
     await ApiService.resumeSpeech();
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.cameraContainer}>
-        <ExpoCamera
-          style={styles.camera}
-          type={ExpoCamera.Constants.Type.back}
-          ref={cameraRef}
-        />
+      <NavigationBar />
+      <View style={styles.content}>
+        <View style={styles.cameraContainer}>
+          <ExpoCamera
+            style={styles.camera}
+            type={ExpoCamera.Constants.Type.back}
+            ref={cameraRef}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Play" onPress={handlePlaySpeech} />
+          <Button title="Pause" onPress={handlePauseSpeech} />
+          <Button title="Take Picture" onPress={takePictureAndUpload} />
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Play" onPress={handlePlaySpeech} />
-        <Button title="Pause" onPress={handlePauseSpeech} />
-        <Button title="Take Picture" onPress={takePictureAndUpload} />
-      </View>
-      <View>
-      <AudioRecorderPeriodic captureImage={takePictureAndUpload}/>
-      </View>
+      <AudioRecorderPeriodic />
     </View>
   );
 }
@@ -51,25 +52,28 @@ const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  content: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   cameraContainer: {
     width: '80%',
     aspectRatio: 1,
-    height: height * 0.6, // Increase camera container height
+    height: height * 0.6,
     overflow: 'hidden',
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#FFF',
+    borderColor: '#000',
   },
   camera: {
     flex: 1,
   },
   buttonContainer: {
-    flexDirection: 'row', // Arrange buttons horizontally
-    justifyContent: 'space-between', // Evenly space buttons
-    marginTop: 20, // Add margin between camera and buttons
-    width: '80%', // Match the width of camera container
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
+    marginTop: 20,
   },
 });

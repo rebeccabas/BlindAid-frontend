@@ -9,15 +9,16 @@ import ApiService from './services/ApiService';
 import AudioRecorder from './components/AudioRecorder/AudioRecorder';
 import ReadFromText from './components/ReadFromText/ReadFromText';
 import AudioRecorderPeriodic from './components/AudioRecorder/AudioRecorderPeriodic';
-import HomeScreen from './components/HomeScreen';
-
+import MainScreen from './components/Home/MainScreen';
+import BlankScreen from './components/BlankScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+       <Stack.Navigator initialRouteName="BlankScreen">
+        <Stack.Screen name = "blank screen" component={BlankScreen} />
+        <Stack.Screen name="HomeScreen" component={MainScreen} />
         <Stack.Screen name="ReadFromText" component={ReadFromText} />
         <Stack.Screen name="AudioRecorder" component={AudioRecorder} />
       </Stack.Navigator>
