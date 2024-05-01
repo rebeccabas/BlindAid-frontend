@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, FlatList, SafeAreaView, Platform, StatusBar } from 'react-native';
 import ToggleMenu from './ToggleMenu';
+import { useNavigation } from '@react-navigation/native';
+import ReadFromText from '../ReadFromText/ReadFromText';
+import AudioRecorder from '../AudioRecorder/AudioRecorder';
+
+
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigation = useNavigation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -13,11 +19,32 @@ const NavigationBar = () => {
     { id: '1', title: 'Home' },
     { id: '2', title: 'Settings' },
     { id: '3', title: 'Help' },
+    { id: '4', title: 'ReadFromText' },
+    { id: '5', title: 'AudioRecorder' },
+    
     // Add more items as needed
   ];
 
+  const handleNavbarItemClick = (title) => {
+    if (title === 'ReadFromText') {
+      navigation.navigate('ReadFromText');
+    }
+
+    if (title === 'AudioRecorder') {
+      navigation.navigate('AudioRecorder');
+    }
+
+    if (title === 'Home') {
+      navigation.navigate('HomeScreen');
+    }
+    // Add navigation for other items if needed
+  };
+
   const renderNavbarItem = ({ item }) => (
-    <TouchableOpacity style={styles.navbarItemContainer}>
+    <TouchableOpacity
+      style={styles.navbarItemContainer}
+      onPress={() => handleNavbarItemClick(item.title)}
+    >
       <Text style={styles.navbarItemText}>{item.title}</Text>
     </TouchableOpacity>
   );
