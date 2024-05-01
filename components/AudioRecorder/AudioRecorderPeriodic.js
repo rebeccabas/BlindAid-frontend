@@ -61,7 +61,7 @@ export default function AudioRecorderPeriodic({captureImage}) {
         name: filename,
       });
 
-      const response = await fetch('http://192.168.1.105:8000/audio/transcribe/', {
+      const response = await fetch('http://192.168.1.103:8000/audio/transcribe/', {
         method: 'POST',
         body: formData,
       });

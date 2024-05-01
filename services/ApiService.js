@@ -16,7 +16,7 @@ export default class ApiService {
         uri: imageFile.uri,
       });
 
-      const response = await fetch('http://192.168.1.105:8000/ocr/', {
+      const response = await fetch('http://192.168.1.103:8000/ocr/', {
         method: 'POST',
         body: formData,
         headers: {
@@ -76,7 +76,7 @@ export default class ApiService {
         uri: imageFile.uri,
       });
 
-      const response = await fetch('http://192.168.1.105:8000/navigate/', {
+      const response = await fetch('http://192.168.1.103:8000/navigate/', {
         method: 'POST',
         body: formData,
         headers: {

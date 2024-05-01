@@ -41,7 +41,7 @@ function MainScreen() {
     <View style={{ flex: 1 }}>
       <NavigationBar />
       <Camera onImageCapture={handleImageCapture} />
-      <AudioRecorderPeriodic />
+      
       
     </View>
   );

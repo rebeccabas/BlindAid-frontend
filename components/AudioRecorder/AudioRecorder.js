@@ -92,7 +92,7 @@ export default function AudioRecorder() {
     });
     
     try {
-      const response = await fetch('http://192.168.1.105:8000/voice/assist/', {
+      const response = await fetch('http://192.168.1.103:8000/audio/transcribe', {
         method: 'POST',
         body:formData,
 
