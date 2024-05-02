@@ -11,7 +11,9 @@ import ReadFromText from './components/ReadFromText/ReadFromText';
 import AudioRecorderPeriodic from './components/AudioRecorder/AudioRecorderPeriodic';
 import MainScreen from './components/Home/MainScreen';
 import BlankScreen from './components/BlankScreen';
+import BackAudio from './components/BackAudio';
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
@@ -21,6 +23,7 @@ export default function App() {
         <Stack.Screen name="HomeScreen" component={MainScreen} />
         <Stack.Screen name="ReadFromText" component={ReadFromText} />
         <Stack.Screen name="AudioRecorder" component={AudioRecorder} />
+        <Stack.Screen name="BackAudio" component={BackAudio}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

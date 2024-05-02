@@ -1,11 +1,38 @@
 import { Image } from 'react-native';
 import * as Speech from 'expo-speech';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react';
+import { Audio } from 'expo-av';
 
 export default class ApiService {
   static lastSpokenText = '';
-  static spokenText = ''; // Add a static property to store spoken text
+  static spokenText = '';
+  static sound = null;
 
+  static async playSound() {
+    try {
+      if (ApiService.sound) {
+        await ApiService.sound.unloadAsync();
+      }
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: 'http://192.168.1.101:8000/get_audio/' },
+        { shouldPlay: true }
+      );
+      ApiService.sound = sound;
+    } catch (error) {
+      console.error('Error playing audio:', error);
+    }
+  }
+  static async stopSound() {
+    try {
+      if (ApiService.sound) {
+        await ApiService.sound.stopAsync();
+      }
+    } catch (error) {
+      console.error('Error stopping audio:', error);
+    }
+  }
+ 
   static async sendImagetoRead(imageFile) {
    
     try {
@@ -76,7 +103,7 @@ export default class ApiService {
         uri: imageFile.uri,
       });
 
-      const response = await fetch('http://192.168.1.103:8000/navigate/', {
+      const response = await fetch('http://192.168.1.101:8000/navigate/tts', {
         method: 'POST',
         body: formData,
         headers: {
@@ -90,33 +117,12 @@ export default class ApiService {
       }
 
       console.log(response);
-      const responseBody = await response.json();
-      const instructions = responseBody.instructions;
-      console.log(instructions);
       
+     // Assuming the API returns the audio file URI directly
+      await ApiService.playSound();
 
-      // Check if Speech is available on the platform
-      if (Speech !== null && Speech.speak !== undefined && instructions) {
-        await Speech.stop(); // Stop any existing speech
-        ApiService.spokenText = '';
-        await ApiService.saveLastSpokenText(instructions);
-        
-        await Speech.speak(instructions,{
-          rate: 0.7,
-          onBoundary: (boundaries) => {
-            const { charIndex, charLength } = boundaries;
-            const word = instructions.substring(charIndex, charIndex + charLength);
-          
-            ApiService.spokenText += word;
-            console.log(ApiService.spokenText);
-        }
-
-        });
-      } else {
-        console.log('Speech module is not available on this platform');
-      }
-
-      return instructions; // Optionally return the instructions as well
+      // Check if Speech is available on the platfor
+      // Optionally return the instructions as well
     } catch (error) {
       console.log('Error sending image or speaking instructions:', error);
       return null;

@@ -21,6 +21,7 @@ const NavigationBar = () => {
     { id: '3', title: 'Help' },
     { id: '4', title: 'ReadFromText' },
     { id: '5', title: 'AudioRecorder' },
+    {id:'6', title: 'BackAudio'}
     
     // Add more items as needed
   ];
@@ -36,6 +37,9 @@ const NavigationBar = () => {
 
     if (title === 'Home') {
       navigation.navigate('HomeScreen');
+    }
+    if (title === 'BackAudio') {
+      navigation.navigate('BackAudio');
     }
     // Add navigation for other items if needed
   };
