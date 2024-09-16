@@ -15,7 +15,7 @@ export default class ApiService {
         await ApiService.sound.unloadAsync();
       }
       const { sound } = await Audio.Sound.createAsync(
-        { uri: 'http://192.168.1.101:8000/get_audio/' },
+        { uri: 'http://192.168.101.5:8000/get_audio/' },
         { shouldPlay: true }
       );
       ApiService.sound = sound;
@@ -43,7 +43,7 @@ export default class ApiService {
         uri: imageFile.uri,
       });
 
-      const response = await fetch('http://192.168.1.103:8000/ocr/', {
+      const response = await fetch('http://192.168.101.6:8000/ocr/', {
         method: 'POST',
         body: formData,
         headers: {
@@ -103,7 +103,7 @@ export default class ApiService {
         uri: imageFile.uri,
       });
 
-      const response = await fetch('http://192.168.1.101:8000/navigate/tts', {
+      const response = await fetch('http://192.168.101.6:8000/navigate/tts', {
         method: 'POST',
         body: formData,
         headers: {
