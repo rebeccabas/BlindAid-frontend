@@ -15,32 +15,81 @@ export default class ApiService {
         method: 'POST',
         body: formData,
         headers: {
-          // 'Accept': 'audio/mpeg', // Expected response content type
           'Content-Type': 'multipart/form-data',
         },
       });
 
       if (!response.ok) {
-        throw new Error(`Error fetching audio file: ${response.status}`);
+        throw new Error(`Error fetching instructions: ${response.status}`);
       }
 
       console.log(response);
       const responseBody = await response.json();
       const instructions = responseBody.instructions;
-      console.log(instructions);
+      console.log('Received instructions:', instructions);
 
-      // Check if Speech is available on the platform
-      if (Speech !== null && Speech.speak !== undefined && instructions) {
-        await Speech.stop(); // Stop any existing speech
-        await Speech.speak(instructions);
+      if (instructions) {
+        await this.speakInstructions(instructions);
       } else {
-        console.log('Speech module is not available on this platform');
+        console.log('No instructions received');
       }
 
-      return instructions; // Optionally return the instructions as well
+      return instructions;
     } catch (error) {
-      console.log('Error sending image or speaking instructions:', error);
+      console.error('Error sending image or speaking instructions:', error);
       return null;
+    }
+  }
+
+  static async sendReader(imageFile) {
+    try {
+      const formData = new FormData();
+      formData.append('file', {
+        name: 'image.jpg',
+        type: 'image/jpeg',
+        uri: imageFile.uri,
+      });
+
+      const response = await fetch('http://192.168.1.139:8000/ocr/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching instructions: ${response.status}`);
+      }
+
+      console.log(response);
+      const responseBody = await response.json();
+      const instructions = responseBody.instructions;
+      console.log('Received instructions:', instructions);
+
+      if (instructions) {
+        await this.speakInstructions(instructions);
+      } else {
+        console.log('No instructions received');
+      }
+
+      return instructions;
+    } catch (error) {
+      console.error('Error sending image or speaking instructions:', error);
+      return null;
+    }
+  }
+
+  static async speakInstructions(text, language = 'hi-IN') {
+    try {
+      const options = {
+        language: language,
+        pitch: 1.0,
+        rate: 0.75,
+      };
+      await Speech.speak(text, options);
+    } catch (error) {
+      console.error('Error speaking instructions:', error);
     }
   }
 }

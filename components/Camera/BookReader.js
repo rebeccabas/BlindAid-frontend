@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { Camera as ExpoCamera } from 'expo-camera';
 
-export default function Camera({ onImageCapture }) {
+export default function BookReader({ onBookReader }) {
   const cameraRef = useRef(null);
 
   useEffect(() => {
@@ -18,9 +18,9 @@ export default function Camera({ onImageCapture }) {
           if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync();
             console.log("here",photo);
-            onImageCapture(photo); // Access the base64 string correctly
+            onBookReader(photo); // Access the base64 string correctly
           }
-        }, 30000); 
+        }, 30000); // 8 seconds
 
         return () => clearInterval(interval);
       } catch (error) {

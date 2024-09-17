@@ -10,8 +10,8 @@ const NavigationBar = () => {
   };
 
   const navbarItems = [
-    { id: '1', title: 'Home' },
-    { id: '2', title: 'Settings' },
+    { id: '1', title: 'Navigator' },
+    { id: '2', title: 'Reader' },
     { id: '3', title: 'Help' },
     // Add more items as needed
   ];
