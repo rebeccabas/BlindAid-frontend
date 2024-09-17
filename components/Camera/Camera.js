@@ -20,7 +20,7 @@ export default function Camera({ onImageCapture }) {
             console.log("here",photo);
             onImageCapture(photo); // Access the base64 string correctly
           }
-        }, 30000); // 8 seconds
+        }, 30000); 
 
         return () => clearInterval(interval);
       } catch (error) {
